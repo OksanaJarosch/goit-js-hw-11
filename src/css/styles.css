@@ -91,7 +91,7 @@ button:focus {
     font-size: 14px;
     line-height: 29px;
     padding: 0 10px 0 11px;
-    width: 200px;
+    max-width: 200px;
    
     vertical-align: middle;
 }
