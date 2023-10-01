@@ -58,3 +58,19 @@
             justify-content: start;
         }
 }
+
+@media screen and (max-width: 630px) {
+    .photo-card {
+     max-width: 300px;
+    }
+}
+
+@media screen and (min-width: 631px) and (max-width: 767px) {
+    .photo-card {
+     width: 300px;
+    }
+
+    .photo-container {
+     height: 200px;
+       }
+}
