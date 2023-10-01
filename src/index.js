@@ -4,7 +4,8 @@ import throttle  from "lodash.throttle";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-import { scrollWindow } from "./helpers/scroll";
+// import { scrollWindow } from "./helpers/scroll";
+import { btnUp } from "./helpers/scroll";
 
 var lightbox = new SimpleLightbox('.gallery a');
 const API_KEY = "39616729-48f7c3a0adac5813f5f0e61de";
@@ -124,7 +125,7 @@ selectors.card.insertAdjacentHTML("beforeend", markup);
 
 lightbox.refresh();
 selectors.btnUp.hidden = false;
-selectors.btnUp.addEventListener("click", scrollWindow);
+btnUp;
 }
 
 
