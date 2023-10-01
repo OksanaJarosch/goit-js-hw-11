@@ -10,6 +10,7 @@
   <body>
     <form class="search-form" id="search-form">
       <input
+      class="search-input"
         type="text"
         name="searchQuery"
         autocomplete="off"
@@ -21,6 +22,8 @@
       <!-- Cards -->
     </div>
     <button type="button" class="load-more" hidden>Load more</button>
+    <p class="last-page" hidden>We're sorry, but you've reached the end of search results.</p>
+    <button type="button" class="go-up" hidden><span>&uarr; </span>Back to search</button>
     <script type="module" src="./index.js"></script>
   </body>
 </html>

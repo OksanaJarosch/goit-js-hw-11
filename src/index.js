@@ -2,6 +2,8 @@ import axios from "axios";
 import Notiflix from 'notiflix';
 import throttle  from "lodash.throttle";
 
+import { scrollWindow } from "./helpers/scroll";
+
 const API_KEY = "39616729-48f7c3a0adac5813f5f0e61de";
 const BASE_URL = "https://pixabay.com/api/";
 let query = "";
@@ -11,10 +13,14 @@ const selectors = {
     form: document.querySelector(".search-form"),
     card: document.querySelector(".gallery"),
     loadMoreBtn: document.querySelector(".load-more"),
+    lastPageMessage: document.querySelector(".last-page"),
+    btnUp: document.querySelector(".go-up"),
+
 }
 
 selectors.form.addEventListener("input", throttle(handleInput, 500));
 selectors.form.addEventListener("submit", onSearch);
+selectors.loadMoreBtn.addEventListener("click", onLoad);
 
 //* Save input query
 function handleInput(evt) {
@@ -24,20 +30,24 @@ query = evt.target.value;
 //* Search photo and make card
 function onSearch(evt) {
     evt.preventDefault();
+    page = 12;
     selectors.card.innerHTML = "";
-    page = 1;
+    selectors.lastPageMessage.hidden = true;
     selectors.loadMoreBtn.hidden = true;
+    selectors.btnUp.hidden = true;
+    Notiflix.Loading.circle("Loading...");
 
     getPhoto(query)
-    // .then(({data}) => console.log(data))
     .then(({data: {hits}}) => {
         if (hits.length === 0 || query.trim() === "") {
-        console.log("Sorry, there are no images matching your search query. Please try again.");
-        //! Для повідомлень використовуй бібліотеку notiflix.
+        Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
         selectors.card.innerHTML = "";
+        Notiflix.Loading.remove();
         } else {
             makeCardMarkup(hits);
             selectors.loadMoreBtn.hidden = false;
+
+            Notiflix.Loading.remove();
         }
 }
     )
@@ -81,7 +91,9 @@ return response;
 function makeCardMarkup(arr) {
     const markup = arr.map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => {
         return `<div class="photo-card">
+        <div class="photo-container">
     <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+    </div>
     <div class="info">
       <p class="info-item">
         <b>Likes</b>
@@ -103,6 +115,30 @@ function makeCardMarkup(arr) {
   </div>`
 }).join("");
 
-selectors.card.insertAdjacentHTML("beforeend", markup)
+selectors.card.insertAdjacentHTML("beforeend", markup);
+
+selectors.btnUp.hidden = false;
+selectors.btnUp.addEventListener("click", scrollWindow);
 }
 
+
+//* Button "Load more"
+function onLoad() {
+  page += 1;
+  selectors.loadMoreBtn.hidden = true;
+  Notiflix.Loading.circle("Loading...");
+
+  getPhoto(query)
+    .then(({data: {hits, totalHits}}) => {
+      if (page === Math.ceil(totalHits/40)) {
+        Notiflix.Loading.remove();
+        selectors.lastPageMessage.hidden = false;
+      } else {
+            makeCardMarkup(hits);
+            selectors.loadMoreBtn.hidden = false;
+            Notiflix.Loading.remove();
+        }
+      })
+    .catch(error =>
+        console.log(error));
+}
