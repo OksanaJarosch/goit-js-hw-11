@@ -59,29 +59,7 @@
         }
 }
 
-@media screen and (max-width: 630px) {
-    .photo-card {
-     max-width: 300px;
-    }
-    
-    .search-form {
-        flex-direction: column;
-        max-width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-    }
 
-    .search-btn {
-        max-width: 200px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .search-input {
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
 
 @media screen and (min-width: 631px) and (max-width: 767px) {
     .photo-card {
