@@ -65,10 +65,21 @@
     }
     
     .search-form {
-        /* flex-direction: column; */
+        flex-direction: column;
         max-width: 300px;
-margin-left: auto;
-margin-right: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .search-btn {
+        max-width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .search-input {
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
