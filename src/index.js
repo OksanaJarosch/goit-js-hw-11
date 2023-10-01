@@ -30,7 +30,7 @@ query = evt.target.value;
 //* Search photo and make card
 function onSearch(evt) {
     evt.preventDefault();
-    page = 12;
+    page = 11;
     selectors.card.innerHTML = "";
     selectors.lastPageMessage.hidden = true;
     selectors.loadMoreBtn.hidden = true;
