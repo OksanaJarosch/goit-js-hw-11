@@ -50,7 +50,6 @@ function onSearch(evt) {
         } else {
             makeCardMarkup(hits);
             const totalPages = Math.ceil(totalHits/40);
-            console.log(totalPages);
             if (page === totalPages) {
               selectors.loadMoreBtn.hidden = true;
               selectors.lastPageMessage.hidden = false;
@@ -74,14 +73,8 @@ function onLoad() {
 
   getPhoto(query)
     .then(({data: {hits, totalHits}}) => {
-      // if (page === Math.ceil(totalHits/40)) {
-      //   Notiflix.Loading.remove();
-      //   selectors.lastPageMessage.hidden = false;
-      // } else {
-        
             makeCardMarkup(hits);
             const totalPages = Math.ceil(totalHits/40);
-            console.log(totalPages);
             if (page === totalPages) {
               selectors.loadMoreBtn.hidden = true;
               selectors.lastPageMessage.hidden = false;

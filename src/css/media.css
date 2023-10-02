@@ -44,7 +44,7 @@
 
 }
 
-@media screen and (min-width: 1510px) {
+@media screen and (min-width: 635px) {
 
     .search-form {
         justify-content: start;
@@ -54,9 +54,17 @@
             justify-content: start;
         }
 
-        .under-conteiner{
+        .btns-helpers {
             justify-content: start;
         }
+        
+        .under-conteiner{
+            flex-direction: column;
+            justify-content: start;
+            margin: 0;
+            max-width: 100%;
+        }
+
 }
 
 

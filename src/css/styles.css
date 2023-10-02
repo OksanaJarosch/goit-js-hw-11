@@ -53,6 +53,7 @@ width: 100%;
 }
 
 button {
+    
   background-color: #fff;
   border: 1px solid #d5d9d9;
   border-radius: 8px;
@@ -92,7 +93,7 @@ button:focus {
     max-width: 100%;
     line-height: 29px;
     padding: 0 10px 0 11px;
-    max-width: 200px;
+    /* max-width: 200px; */
    
     vertical-align: middle;
 }
@@ -106,4 +107,11 @@ max-width: 300px;
 margin-left: auto;
 margin-right: auto;
 margin-bottom: 30px;
+}
+
+.btns-helpers {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+   margin: 20px 0;
 }
