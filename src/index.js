@@ -42,19 +42,55 @@ function onSearch(evt) {
     Notiflix.Loading.circle("Loading...");
 
     getPhoto(query)
-    .then(({data: {hits}}) => {
+    .then(({data: {hits, totalHits}}) => {
         if (hits.length === 0 || query.trim() === "") {
         Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
         selectors.card.innerHTML = "";
         Notiflix.Loading.remove();
         } else {
             makeCardMarkup(hits);
+            const totalPages = Math.ceil(totalHits/40);
+            console.log(totalPages);
+            if (page === totalPages) {
+              selectors.loadMoreBtn.hidden = true;
+              selectors.lastPageMessage.hidden = false;
+            } else {
             selectors.loadMoreBtn.hidden = false;
-
+            }
             Notiflix.Loading.remove();
+            Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
         }
 }
     )
+    .catch(error =>
+        console.log(error));
+}
+
+//* Button "Load more"
+function onLoad() {
+  page += 1;
+  selectors.loadMoreBtn.hidden = true;
+  Notiflix.Loading.circle("Loading...");
+
+  getPhoto(query)
+    .then(({data: {hits, totalHits}}) => {
+      // if (page === Math.ceil(totalHits/40)) {
+      //   Notiflix.Loading.remove();
+      //   selectors.lastPageMessage.hidden = false;
+      // } else {
+        
+            makeCardMarkup(hits);
+            const totalPages = Math.ceil(totalHits/40);
+            console.log(totalPages);
+            if (page === totalPages) {
+              selectors.loadMoreBtn.hidden = true;
+              selectors.lastPageMessage.hidden = false;
+            } else {
+            selectors.loadMoreBtn.hidden = false;
+            }
+            Notiflix.Loading.remove();
+        }
+      )
     .catch(error =>
         console.log(error));
 }
@@ -72,6 +108,7 @@ async function getPhoto(query) {
     })
     // console.log(params.toString());
     const response = await axios.get(`${BASE_URL}?${params}`);
+    console.log(response);
 return response;
 }
 
@@ -129,23 +166,3 @@ btnUp;
 }
 
 
-//* Button "Load more"
-function onLoad() {
-  page += 1;
-  selectors.loadMoreBtn.hidden = true;
-  Notiflix.Loading.circle("Loading...");
-
-  getPhoto(query)
-    .then(({data: {hits, totalHits}}) => {
-      if (page === Math.ceil(totalHits/40)) {
-        Notiflix.Loading.remove();
-        selectors.lastPageMessage.hidden = false;
-      } else {
-            makeCardMarkup(hits);
-            selectors.loadMoreBtn.hidden = false;
-            Notiflix.Loading.remove();
-        }
-      })
-    .catch(error =>
-        console.log(error));
-}

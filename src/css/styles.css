@@ -89,6 +89,7 @@ button:focus {
     color: #0f1111;
 
     font-size: 14px;
+    max-width: 100%;
     line-height: 29px;
     padding: 0 10px 0 11px;
     max-width: 200px;
